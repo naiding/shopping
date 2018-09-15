@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import shopping.common.ResponseHelper;
+import shopping.entity.User;
 
 @Controller
 public class ApiController {
@@ -17,5 +18,9 @@ public class ApiController {
 		ResponseHelper.createResponse(response);
 	}
 	
-	
+	@RequestMapping(value = "/user", method = RequestMethod.GET)
+	public void getUser(HttpServletRequest request, HttpServletResponse response) {
+		User user = new User("Naiding", "Zhou");
+		ResponseHelper.createResponse(response, user.toJSONObject());
+	}
 }

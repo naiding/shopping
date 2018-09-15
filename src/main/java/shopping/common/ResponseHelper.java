@@ -27,7 +27,7 @@ public class ResponseHelper {
 		}
 	}
 	
-	public static void getResponse(HttpServletResponse response, JSONObject jsonObject) {
+	public static void createResponse(HttpServletResponse response, JSONObject jsonObject) {
 		try {
 			response.setContentType("application/json");
 			response.addHeader("Access-Control-Allow-Origin", "*");

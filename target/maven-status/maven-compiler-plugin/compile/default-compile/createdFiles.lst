@@ -1,8 +1,8 @@
 shopping/common/ResponseHelper.class
+shopping/entity/User.class
 shopping/hibernate/PersistentCategory.class
 shopping/hibernate/PersistentProduct.class
 shopping/ApiController.class
+shopping/service/UserService.class
 shopping/hibernate/PersistentUser.class
-shopping/MySQLTableCreation.class
-shopping/MySQLDBUtil.class
 shopping/ApplicationConfiguration.class
