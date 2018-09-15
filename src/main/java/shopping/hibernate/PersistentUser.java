@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import shopping.entity.User;
+
 @Entity
 @Table(name = "users")
 public class PersistentUser implements Serializable {
@@ -129,5 +131,4 @@ public class PersistentUser implements Serializable {
 	public void setSaleList(List<PersistentProduct> saleList) {
 		this.saleList = saleList;
 	}
-	
 }

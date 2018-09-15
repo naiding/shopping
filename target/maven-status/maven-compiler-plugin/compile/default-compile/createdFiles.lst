@@ -1,9 +1,11 @@
-shopping/common/ResponseHelper.class
+shopping/dao/UserDao.class
 shopping/entity/User.class
 shopping/hibernate/PersistentCategory.class
 shopping/hibernate/PersistentProduct.class
+shopping/common/RpcHelper.class
 shopping/ApiController.class
 shopping/service/UserService.class
 shopping/hibernate/PersistentUser.class
 shopping/ApplicationConfiguration.class
-shopping/entity/ShoppingEntity.class
+shopping/service/UserServiceImpl.class
+shopping/dao/UserDaoImpl.class

@@ -1,8 +1,9 @@
 package shopping.service;
 
+import shopping.entity.User;
+
 public interface UserService {
 	
-	public boolean registerUser();
-	
-	
+	boolean registerUser(User user);
+	User login(String emailId, String password);
 }

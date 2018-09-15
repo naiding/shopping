@@ -3,26 +3,35 @@ package shopping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import shopping.common.ResponseHelper;
-import shopping.entity.ShoppingEntity;
+import shopping.common.RpcHelper;
 import shopping.entity.User;
+import shopping.service.UserService;
 
 @Controller
 public class ApiController {
 	
-	@RequestMapping(value = "/hello", method = RequestMethod.GET)
-	public void search(HttpServletRequest request, HttpServletResponse response) {
-		ShoppingEntity entity = new User("Naiding", "Zhou");
-		ResponseHelper.createResponse(response, entity);
-	}
+	@Autowired
+	private UserService userService;
 	
-	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public void getUser(HttpServletRequest request, HttpServletResponse response) {
-		User user = new User("Naiding", "Zhou");
-		ResponseHelper.createResponse(response, user.toJSONObject());
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public void getUser(@RequestBody User user, 
+			HttpServletRequest request, HttpServletResponse response) {
+		
+		JSONObject obj = new JSONObject();
+		if (userService.registerUser(user)) {
+			obj.put("status", "ok");
+			obj.put("user", user.toJSONObject());
+		} else {
+			obj.put("status", "fail");
+		}
+		
+		RpcHelper.writeResponse(response, obj);
 	}
 }

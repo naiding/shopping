@@ -1,9 +1,11 @@
+/Users/naiding/eclipse-workspace/shopping/src/main/java/shopping/service/UserServiceImpl.java
 /Users/naiding/eclipse-workspace/shopping/src/main/java/shopping/entity/User.java
 /Users/naiding/eclipse-workspace/shopping/src/main/java/shopping/ApplicationConfiguration.java
 /Users/naiding/eclipse-workspace/shopping/src/main/java/shopping/service/UserService.java
-/Users/naiding/eclipse-workspace/shopping/src/main/java/shopping/common/ResponseHelper.java
+/Users/naiding/eclipse-workspace/shopping/src/main/java/shopping/dao/UserDaoImpl.java
+/Users/naiding/eclipse-workspace/shopping/src/main/java/shopping/dao/UserDao.java
 /Users/naiding/eclipse-workspace/shopping/src/main/java/shopping/hibernate/PersistentProduct.java
 /Users/naiding/eclipse-workspace/shopping/src/main/java/shopping/hibernate/PersistentUser.java
+/Users/naiding/eclipse-workspace/shopping/src/main/java/shopping/common/RpcHelper.java
 /Users/naiding/eclipse-workspace/shopping/src/main/java/shopping/hibernate/PersistentCategory.java
 /Users/naiding/eclipse-workspace/shopping/src/main/java/shopping/ApiController.java
-/Users/naiding/eclipse-workspace/shopping/src/main/java/shopping/entity/ShoppingEntity.java
