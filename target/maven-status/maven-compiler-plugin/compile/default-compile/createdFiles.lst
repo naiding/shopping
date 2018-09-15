@@ -1,4 +1,5 @@
 shopping/common/ResponseHelper.class
+shopping/hibernate/PersistentCategory.class
 shopping/hibernate/PersistentProduct.class
 shopping/ApiController.class
 shopping/hibernate/PersistentUser.class

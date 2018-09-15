@@ -2,13 +2,17 @@ package shopping.hibernate;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -33,8 +37,8 @@ public class PersistentProduct implements Serializable {
 	@Column(name = "name")
 	private String productName;
 	
-	@Column(name = "category")
-	private String productCategory;
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<PersistentCategory> productCategories;
 
 	@Column(name = "description")
 	private String productDescription;
@@ -77,13 +81,13 @@ public class PersistentProduct implements Serializable {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-
-	public String getProductCategory() {
-		return productCategory;
+	
+	public List<PersistentCategory> getProductCategories() {
+		return productCategories;
 	}
 
-	public void setProductCategory(String productCategory) {
-		this.productCategory = productCategory;
+	public void setProductCategories(List<PersistentCategory> productCategories) {
+		this.productCategories = productCategories;
 	}
 
 	public String getProductDescription() {

@@ -16,4 +16,6 @@ public class ApiController {
 	public void search(HttpServletRequest request, HttpServletResponse response) {
 		ResponseHelper.createResponse(response);
 	}
+	
+	
 }

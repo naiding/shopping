@@ -3,5 +3,6 @@
 /Users/naiding/eclipse-workspace/shopping/src/main/java/shopping/hibernate/PersistentProduct.java
 /Users/naiding/eclipse-workspace/shopping/src/main/java/shopping/MySQLTableCreation.java
 /Users/naiding/eclipse-workspace/shopping/src/main/java/shopping/hibernate/PersistentUser.java
+/Users/naiding/eclipse-workspace/shopping/src/main/java/shopping/hibernate/PersistentCategory.java
 /Users/naiding/eclipse-workspace/shopping/src/main/java/shopping/ApiController.java
 /Users/naiding/eclipse-workspace/shopping/src/main/java/shopping/MySQLDBUtil.java
