@@ -26,7 +26,7 @@ public class UserController {
 			HttpServletRequest request, HttpServletResponse response) {
 		
 		JSONObject obj = new JSONObject();
-		if (service.registerUser(user)) {
+		if (service.register(user)) {
 			obj.put("status", "ok");
 			obj.put("user", user.toJSONObject());
 		} else {

@@ -12,12 +12,16 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
 	
-	public boolean registerUser(User user) {
-		return userDao.registerUser(user);
+	public boolean register(User user) {
+		return userDao.register(user);
 	}
 
 	public User login(String emailId, String password) {
 		return userDao.login(emailId, password);
+	}
+
+	public User getProfile(String emailId) {
+		return userDao.getProfile(emailId);
 	}
 
 }

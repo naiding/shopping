@@ -4,6 +4,7 @@ import shopping.entity.User;
 
 public interface UserService {
 	
-	boolean registerUser(User user);
+	boolean register(User user);
 	User login(String emailId, String password);
+	User getProfile(String emailId);
 }

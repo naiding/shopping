@@ -17,17 +17,17 @@ public class UserDaoImpl implements UserDao {
 	@Autowired
     private SessionFactory sessionFactory;
 	
-	public boolean registerUser(User user) {
+	public boolean register(User user) {
 		
 		PersistentUser pUser = new PersistentUser();
 		pUser.setEmailId(user.getEmail());
 		pUser.setPassword(user.getPassword());
 		pUser.setEnabled(user.isEnabled());
 		
-		pUser.setFirstName(user.getFirstName());
-		pUser.setLastName(user.getLastName());
-		pUser.setWechatName(user.getWechatName());
-		pUser.setPhoneNumber(user.getPhoneNumber());
+		pUser.setFirstName(user.getFirst_name());
+		pUser.setLastName(user.getLast_name());
+		pUser.setWechatName(user.getWechat());
+		pUser.setPhoneNumber(user.getPhone());
 		
 		pUser.setRegisterDate(new Timestamp(new Date().getTime()));
 		pUser.setFavoriteList(null);
@@ -52,6 +52,10 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public User login(String emailId, String password) {
+		return null;
+	}
+
+	public User getProfile(String emailId) {
 		return null;
 	}
 
