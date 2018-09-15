@@ -2,12 +2,16 @@ package shopping.hibernate;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -31,6 +35,12 @@ public class PersistentUser implements Serializable {
 	private String phoneNumber;
 
 	private Timestamp registerDate;
+	
+	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	private List<PersistentProduct> favoriteList;
+	
+	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	private List<PersistentProduct> saleList;
 	
 	public int getId() {
 		return id;
@@ -102,6 +112,22 @@ public class PersistentUser implements Serializable {
 
 	public void setRegisterDate(Timestamp registerDate) {
 		this.registerDate = registerDate;
+	}
+
+	public List<PersistentProduct> getFavoriteList() {
+		return favoriteList;
+	}
+
+	public void setFavoriteList(List<PersistentProduct> favoriteList) {
+		this.favoriteList = favoriteList;
+	}
+
+	public List<PersistentProduct> getSaleList() {
+		return saleList;
+	}
+
+	public void setSaleList(List<PersistentProduct> saleList) {
+		this.saleList = saleList;
 	}
 	
 }

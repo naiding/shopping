@@ -8,10 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "products")
@@ -23,6 +26,10 @@ public class PersistentProduct implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
+	@ManyToOne
+	@JsonIgnore
+	private PersistentUser owner;
+
 	@Column(name = "name")
 	private String productName;
 	
@@ -53,6 +60,14 @@ public class PersistentProduct implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public PersistentUser getOwner() {
+		return owner;
+	}
+
+	public void setOwner(PersistentUser owner) {
+		this.owner = owner;
 	}
 
 	public String getProductName() {
