@@ -33,7 +33,7 @@ public class ApplicationConfiguration {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 
-		// TODO: Change port according to your database settings
+		// Change port according to your database settings
 		dataSource.setUrl("jdbc:mysql://localhost:3306/shopping?serverTimezone=UTC");
 		dataSource.setUsername("root");
 		dataSource.setPassword("root");
