@@ -4,7 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class User {
+public class User extends ShoppingEntity {
 	
 	private String firstName;
 	private String lastName;
@@ -34,6 +34,7 @@ public class User {
 		this.lastName = lastName;
 	}
 	
+	@Override
 	public JSONObject toJSONObject() {
 		JSONObject obj = new JSONObject();
 		try {

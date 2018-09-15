@@ -6,3 +6,4 @@ shopping/ApiController.class
 shopping/service/UserService.class
 shopping/hibernate/PersistentUser.class
 shopping/ApplicationConfiguration.class
+shopping/entity/ShoppingEntity.class
