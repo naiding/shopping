@@ -4,34 +4,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import shopping.common.RpcHelper;
-import shopping.entity.User;
-import shopping.service.UserService;
 
 @Controller
 public class ApiController {
 	
-	@Autowired
-	private UserService userService;
-	
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public void getUser(@RequestBody User user, 
-			HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/hello", method = RequestMethod.GET)
+	public void getUser(HttpServletRequest request, HttpServletResponse response) {
 		
 		JSONObject obj = new JSONObject();
-		if (userService.registerUser(user)) {
-			obj.put("status", "ok");
-			obj.put("user", user.toJSONObject());
-		} else {
-			obj.put("status", "fail");
-		}
-		
+		obj.put("status", "hello there");
 		RpcHelper.writeResponse(response, obj);
 	}
 }
