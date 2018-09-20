@@ -11,4 +11,8 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
 	private ProductDao productDao;
+
+	public Product getProduct(int productId) {
+		return productDao.getProduct(productId);
+	}
 }
