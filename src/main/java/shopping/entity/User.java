@@ -5,9 +5,11 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import shopping.hibernate.PersistentUser;
+
 public class User {
 	
-	private String user_id;
+	private int user_id;
 	private String email;
 	private String password;
 	private boolean enabled;
@@ -22,12 +24,26 @@ public class User {
 
 	private List<Product> favorites;
 	private List<Product> sales;
-
-	public String getUser_id() {
+	
+	public User() {
+		
+	}
+	public User(PersistentUser pUser) {
+		this.user_id = pUser.getId();
+		this.email = pUser.getEmailId();
+		this.enabled = pUser.isEnabled();
+		this.first_name = pUser.getFirstName();
+		this.last_name = pUser.getLastName();
+		this.wechat = pUser.getWechatName();
+		this.phone = pUser.getPhoneNumber();
+		this.register_date = pUser.getRegisterDate().toString();
+	}
+	
+	public int getUser_id() {
 		return user_id;
 	}
 
-	public void setUser_id(String user_id) {
+	public void setUser_id(int user_id) {
 		this.user_id = user_id;
 	}
 
@@ -129,4 +145,5 @@ public class User {
 		return obj;
 	}
 	
+
 }

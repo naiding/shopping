@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import shopping.common.RpcHelper;
 import shopping.entity.User;
@@ -22,11 +23,27 @@ public class UserController {
 	private UserService service;
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public void getUser(@RequestBody User user, 
+	public void register(@RequestBody User user, 
 			HttpServletRequest request, HttpServletResponse response) {
 		
 		JSONObject obj = new JSONObject();
 		if (service.register(user)) {
+			obj.put("status", "ok");
+		} else {
+			obj.put("status", "fail");
+		}
+		
+		RpcHelper.writeResponse(response, obj);
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public void login(
+			HttpServletRequest request, HttpServletResponse response) {
+		String email = "zhounaiding@gmail.com";
+		String password = "123456";
+		JSONObject obj = new JSONObject();
+		User user = service.login(email, password);
+		if (user != null) {
 			obj.put("status", "ok");
 			obj.put("user", user.toJSONObject());
 		} else {
