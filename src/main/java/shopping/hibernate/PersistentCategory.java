@@ -2,7 +2,6 @@ package shopping.hibernate;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,16 +24,18 @@ public class PersistentCategory implements Serializable {
 	@ManyToOne
 	@JsonIgnore
 	private PersistentProduct product;
-	
-	@Column(name = "first_category")
-	private String firstCategory;
-	
-	@Column(name = "second_category")
-	private String secondCategory;
-	
-	@Column(name = "third_category")
-	private String thirdCategory;
 
+	private String category;
+
+	public PersistentCategory() {
+		
+	}
+	
+	public PersistentCategory(PersistentProduct product, String category) {
+		this.product = product;
+		this.category = category;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -50,28 +51,13 @@ public class PersistentCategory implements Serializable {
 	public void setProduct(PersistentProduct product) {
 		this.product = product;
 	}
-
-	public String getFirstCategory() {
-		return firstCategory;
+	
+	public String getCategory() {
+		return category;
 	}
 
-	public void setFirstCategory(String firstCategory) {
-		this.firstCategory = firstCategory;
+	public void setCategory(String category) {
+		this.category = category;
 	}
-
-	public String getSecondCategory() {
-		return secondCategory;
-	}
-
-	public void setSecondCategory(String secondCategory) {
-		this.secondCategory = secondCategory;
-	}
-
-	public String getThirdCategory() {
-		return thirdCategory;
-	}
-
-	public void setThirdCategory(String thirdCategory) {
-		this.thirdCategory = thirdCategory;
-	}
+	
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import shopping.dao.UserDao;
+import shopping.entity.Product;
 import shopping.entity.User;
 
 @Service
@@ -22,6 +23,10 @@ public class UserServiceImpl implements UserService {
 
 	public User getProfile(String emailId) {
 		return userDao.getProfile(emailId);
+	}
+
+	public boolean addProduct(Product product) {
+		return userDao.addProduct(product);
 	}
 
 }

@@ -1,10 +1,13 @@
 package shopping.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import shopping.hibernate.PersistentProduct;
 import shopping.hibernate.PersistentUser;
 
 public class User {
@@ -28,6 +31,7 @@ public class User {
 	public User() {
 		
 	}
+	
 	public User(PersistentUser pUser) {
 		this.user_id = pUser.getId();
 		this.email = pUser.getEmailId();
@@ -37,6 +41,10 @@ public class User {
 		this.wechat = pUser.getWechatName();
 		this.phone = pUser.getPhoneNumber();
 		this.register_date = pUser.getRegisterDate().toString();
+		this.sales = new ArrayList<Product>();
+		for (PersistentProduct pProduct : pUser.getSaleList()) {
+			this.sales.add(new Product(pProduct));
+		}
 	}
 	
 	public int getUser_id() {
@@ -139,6 +147,11 @@ public class User {
 			obj.put("wechat", wechat);
 			obj.put("phone", phone);
 			obj.put("register_date", register_date);
+			List<JSONObject> list = new ArrayList<JSONObject>();
+			for (Product product : this.sales) {
+				list.add(product.toJSONObject());
+			}
+			obj.put("sales", new JSONArray(list));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

@@ -1,6 +1,7 @@
 package shopping.dao;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,10 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import shopping.entity.Product;
 import shopping.entity.User;
+import shopping.hibernate.PersistentCategory;
+import shopping.hibernate.PersistentProduct;
 import shopping.hibernate.PersistentUser;
 
 @Repository
@@ -32,7 +36,7 @@ public class UserDaoImpl implements UserDao {
 		pUser.setPhoneNumber(user.getPhone());
 		
 		pUser.setRegisterDate(new Timestamp(new Date().getTime()));
-		pUser.setFavoriteList(null);
+//		pUser.setFavoriteList(null);
 		pUser.setSaleList(null);
 		
 		Session session = null;
@@ -86,4 +90,48 @@ public class UserDaoImpl implements UserDao {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
+	public boolean addProduct(Product product) {
+		Session session = null;
+		try {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			
+			String hql = "from PersistentUser pu where pu.id = :userId";
+			Query<PersistentUser> query = session.createQuery(hql)
+					.setParameter("userId", product.getUser_id());
+			List<PersistentUser> pUsers = query.list();
+			session.getTransaction().commit();
+			
+			if (pUsers.size() == 0) {
+				return false;
+			}
+						
+			session.beginTransaction();
+			PersistentProduct pProduct = new PersistentProduct();
+			pProduct.setOwner(pUsers.get(0));
+			pProduct.setProductName(product.getName());
+			pProduct.setProductDescription(product.getDescription());
+			pProduct.setProductPrice(product.getPrice());
+			pProduct.setProductPostDate(new Timestamp(new Date().getTime()));
+			pProduct.setProductIsSold(product.isIs_sold());
+			pProduct.setProductDelivery(product.getDelivery());
+			List<PersistentCategory> pCategories = new ArrayList<PersistentCategory>();
+			for (String s : product.getCategories()) {
+				pCategories.add(new PersistentCategory(pProduct, s));
+			}
+			pProduct.setProductCategories(pCategories);
+			session.save(pProduct);
+			session.getTransaction().commit();
+			return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return false;
+	}
 }

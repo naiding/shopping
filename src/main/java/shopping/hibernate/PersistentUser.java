@@ -35,8 +35,8 @@ public class PersistentUser implements Serializable {
 
 	private Timestamp registerDate;
 	
-	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-	private List<PersistentProduct> favoriteList;
+//	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+//	private List<PersistentProduct> favoriteList;
 	
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<PersistentProduct> saleList;
@@ -113,13 +113,13 @@ public class PersistentUser implements Serializable {
 		this.registerDate = registerDate;
 	}
 
-	public List<PersistentProduct> getFavoriteList() {
-		return favoriteList;
-	}
-
-	public void setFavoriteList(List<PersistentProduct> favoriteList) {
-		this.favoriteList = favoriteList;
-	}
+//	public List<PersistentProduct> getFavoriteList() {
+//		return favoriteList;
+//	}
+//
+//	public void setFavoriteList(List<PersistentProduct> favoriteList) {
+//		this.favoriteList = favoriteList;
+//	}
 
 	public List<PersistentProduct> getSaleList() {
 		return saleList;

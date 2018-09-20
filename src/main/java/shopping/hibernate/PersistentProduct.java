@@ -57,7 +57,7 @@ public class PersistentProduct implements Serializable {
 	
 	@Transient
 	private MultipartFile productImage;
-
+	
 	public int getId() {
 		return id;
 	}
@@ -137,6 +137,4 @@ public class PersistentProduct implements Serializable {
 	public void setProductImage(MultipartFile productImage) {
 		this.productImage = productImage;
 	}
-	
-	
 }
