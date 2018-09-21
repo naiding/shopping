@@ -57,7 +57,6 @@ public class UserDaoImpl implements UserDao {
 		return false;
 	}
 
-	@SuppressWarnings("unchecked")
 	public User login(String emailId, String password) {
 		Session session = null;
 		try {
@@ -66,16 +65,15 @@ public class UserDaoImpl implements UserDao {
 			
 			String hql = "from PersistentUser pu where pu.emailId = :emailId"
 					+ " AND pu.password = :password";
-			Query<PersistentUser> query = session.createQuery(hql)
-					.setParameter("emailId", emailId)
-					.setParameter("password", password);
-			List<PersistentUser> pUsers = query.list();
+			Query<PersistentUser> query = session.createQuery(hql, PersistentUser.class)
+								.setParameter("emailId", emailId)
+								.setParameter("password", password);
+			PersistentUser pUser = query.getSingleResult();
 			session.getTransaction().commit();
-			if (pUsers.size() > 0) {
-				return new User(pUsers.get(0));
-			} else {
+			if (pUser == null) {
 				return null;
 			}
+			return new User(pUser);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -90,7 +88,6 @@ public class UserDaoImpl implements UserDao {
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	public boolean addProduct(Product product) {
 		Session session = null;
 		try {
@@ -98,18 +95,18 @@ public class UserDaoImpl implements UserDao {
 			session.beginTransaction();
 			
 			String hql = "from PersistentUser pu where pu.id = :userId";
-			Query<PersistentUser> query = session.createQuery(hql)
-					.setParameter("userId", product.getUser_id());
-			List<PersistentUser> pUsers = query.list();
+			Query<PersistentUser> query = session.createQuery(hql, PersistentUser.class)
+								.setParameter("userId", product.getUser_id());
+			PersistentUser pUser = query.getSingleResult();
 			session.getTransaction().commit();
 			
-			if (pUsers.size() == 0) {
+			if (pUser == null) {
 				return false;
 			}
 						
 			session.beginTransaction();
 			PersistentProduct pProduct = new PersistentProduct();
-			pProduct.setOwner(pUsers.get(0));
+			pProduct.setOwner(pUser);
 			pProduct.setProductName(product.getName());
 			pProduct.setProductDescription(product.getDescription());
 			pProduct.setProductPrice(product.getPrice());
@@ -124,7 +121,6 @@ public class UserDaoImpl implements UserDao {
 			session.save(pProduct);
 			session.getTransaction().commit();
 			return true;
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
