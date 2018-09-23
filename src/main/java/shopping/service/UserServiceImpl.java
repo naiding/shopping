@@ -17,12 +17,12 @@ public class UserServiceImpl implements UserService {
 		return userDao.register(user);
 	}
 
-	public User login(String emailId, String password) {
+	public Integer login(String emailId, String password) {
 		return userDao.login(emailId, password);
 	}
 
-	public User getProfile(String emailId) {
-		return userDao.getProfile(emailId);
+	public User getProfile(int userId) {
+		return userDao.getProfile(userId);
 	}
 
 	public boolean addProduct(Product product) {

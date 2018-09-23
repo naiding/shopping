@@ -14,7 +14,7 @@
 					data : form.serialize()
 				}).success(function(result, status, xhr) {
 					if (xhr.status === 200) {
-						alert("login successfully");
+						window.location.href = ("profile.html");
 					}
 				}).error(function(xhr, status, error) {
 					$("#info").html("bad");
@@ -23,5 +23,7 @@
 			
 		});
     }
+    
+    
 	
 })();

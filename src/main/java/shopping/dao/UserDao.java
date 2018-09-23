@@ -7,9 +7,9 @@ public interface UserDao {
 	
 	boolean register(User user);
 	
-	User login(String emailId, String password);
+	Integer login(String emailId, String password);
 	
-	User getProfile(String emailId);
+	User getProfile(int userId);
 	
 	boolean addProduct(Product product);
 }

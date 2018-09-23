@@ -57,23 +57,20 @@ public class UserDaoImpl implements UserDao {
 		return false;
 	}
 
-	public User login(String emailId, String password) {
+	public Integer login(String emailId, String password) {
 		Session session = null;
 		try {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 			
-			String hql = "from PersistentUser pu where pu.emailId = :emailId"
-					+ " AND pu.password = :password";
+			String hql = "from PersistentUser pu where pu.emailId = :emailId";
 			Query<PersistentUser> query = session.createQuery(hql, PersistentUser.class)
-								.setParameter("emailId", emailId)
-								.setParameter("password", password);
+								.setParameter("emailId", emailId);
 			PersistentUser pUser = query.getSingleResult();
 			session.getTransaction().commit();
-			if (pUser == null) {
-				return null;
+			if (pUser != null && pUser.getPassword().equals(password)) {
+				return Integer.valueOf(pUser.getId());
 			}
-			return new User(pUser);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -84,7 +81,28 @@ public class UserDaoImpl implements UserDao {
 		return null;
 	}
 
-	public User getProfile(String emailId) {
+	public User getProfile(int userId) {
+		Session session = null;
+		try {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			
+			String hql = "from PersistentUser pu where pu.id = :userId";
+			Query<PersistentUser> query = session.createQuery(hql, PersistentUser.class)
+								.setParameter("userId", userId);
+			PersistentUser pUser = query.getSingleResult();
+			session.getTransaction().commit();
+			
+			if (pUser != null) {
+				return new User(pUser);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
 		return null;
 	}
 
@@ -102,8 +120,7 @@ public class UserDaoImpl implements UserDao {
 			
 			if (pUser == null) {
 				return false;
-			}
-						
+			}	
 			session.beginTransaction();
 			PersistentProduct pProduct = new PersistentProduct();
 			pProduct.setOwner(pUser);
