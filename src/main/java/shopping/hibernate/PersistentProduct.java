@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -42,6 +44,14 @@ public class PersistentProduct implements Serializable {
 	
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<PersistentCategory> productCategories;
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = 
+				{ CascadeType.PERSIST, CascadeType.MERGE, 
+				  CascadeType.DETACH, CascadeType.REFRESH })
+	@JoinTable(name = "users_favorites", 
+			   joinColumns = @JoinColumn(name = "product_id"), 
+			   inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private List<PersistentUser> favoriteUsers;
 
 	@Column(name = "description")
 	private String productDescription;
@@ -91,6 +101,14 @@ public class PersistentProduct implements Serializable {
 
 	public void setProductCategories(List<PersistentCategory> productCategories) {
 		this.productCategories = productCategories;
+	}
+	
+	public List<PersistentUser> getFavoriteUsers() {
+		return favoriteUsers;
+	}
+
+	public void setFavoriteUsers(List<PersistentUser> favoriteUsers) {
+		this.favoriteUsers = favoriteUsers;
 	}
 
 	public String getProductDescription() {

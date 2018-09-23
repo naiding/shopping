@@ -12,5 +12,7 @@ public interface UserService {
 	User getProfile(int userId);
 	
 	boolean addProduct(Product product);
+	
+	boolean favorite(int userId, int productId);
 
 }

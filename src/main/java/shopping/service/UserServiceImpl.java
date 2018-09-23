@@ -29,4 +29,8 @@ public class UserServiceImpl implements UserService {
 		return userDao.addProduct(product);
 	}
 
+	public boolean favorite(int userId, int productId) {
+		return userDao.favorite(userId, productId);
+	}
+
 }

@@ -36,7 +36,7 @@ public class UserDaoImpl implements UserDao {
 		pUser.setPhoneNumber(user.getPhone());
 		
 		pUser.setRegisterDate(new Timestamp(new Date().getTime()));
-//		pUser.setFavoriteList(null);
+		pUser.setFavoriteList(null);
 		pUser.setSaleList(null);
 		
 		Session session = null;
@@ -86,11 +86,7 @@ public class UserDaoImpl implements UserDao {
 		try {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
-			
-			String hql = "from PersistentUser pu where pu.id = :userId";
-			Query<PersistentUser> query = session.createQuery(hql, PersistentUser.class)
-								.setParameter("userId", userId);
-			PersistentUser pUser = query.getSingleResult();
+			PersistentUser pUser = session.get(PersistentUser.class, userId);
 			session.getTransaction().commit();
 			
 			if (pUser != null) {
@@ -111,16 +107,12 @@ public class UserDaoImpl implements UserDao {
 		try {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
-			
-			String hql = "from PersistentUser pu where pu.id = :userId";
-			Query<PersistentUser> query = session.createQuery(hql, PersistentUser.class)
-								.setParameter("userId", product.getUser_id());
-			PersistentUser pUser = query.getSingleResult();
+			PersistentUser pUser = session.get(PersistentUser.class, product.getUser_id());
 			session.getTransaction().commit();
-			
 			if (pUser == null) {
 				return false;
-			}	
+			}		
+
 			session.beginTransaction();
 			PersistentProduct pProduct = new PersistentProduct();
 			pProduct.setOwner(pUser);
@@ -137,6 +129,35 @@ public class UserDaoImpl implements UserDao {
 			pProduct.setProductCategories(pCategories);
 			session.save(pProduct);
 			session.getTransaction().commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return false;
+	}
+
+	public boolean favorite(int userId, int productId) {
+		Session session = null;
+		try {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			PersistentUser pUser = session.get(PersistentUser.class, userId);
+			PersistentProduct pProduct = session.get(PersistentProduct.class, productId);
+			
+			if (pUser == null || pProduct == null) {
+				return false;
+			}
+			
+			pUser.getFavoriteList().add(pProduct);
+//			pProduct.getFavoriteUsers().add(pUser);
+			session.save(pUser);
+			session.save(pProduct);
+			session.getTransaction().commit();
+			
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

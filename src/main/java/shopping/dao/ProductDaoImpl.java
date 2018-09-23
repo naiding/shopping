@@ -1,21 +1,13 @@
 package shopping.dao;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import shopping.entity.Product;
-import shopping.entity.User;
-import shopping.hibernate.PersistentCategory;
 import shopping.hibernate.PersistentProduct;
-import shopping.hibernate.PersistentUser;
 
 @Repository
 public class ProductDaoImpl implements ProductDao {
@@ -29,15 +21,11 @@ public class ProductDaoImpl implements ProductDao {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 			
-			String hql = "from PersistentProduct pp where pp.id = :productId";
-			Query<PersistentProduct> query = session.createQuery(hql, PersistentProduct.class)
-								.setParameter("productId", productId);
-			List<PersistentProduct> pProducts = query.list();
+			PersistentProduct pProduct = session.get(PersistentProduct.class, productId);
 			session.getTransaction().commit();
-			if (pProducts.size() > 0) {
-				return new Product(pProducts.get(0));
-			} else {
-				return null;
+
+			if (pProduct != null) {
+				return new Product(pProduct);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

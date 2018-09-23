@@ -103,4 +103,31 @@ public class UserController {
         }
 		RpcHelper.writeResponse(response, obj);
 	}
+	
+	@RequestMapping(value = "/favorite", method = RequestMethod.POST)
+	public void favorite(@RequestParam(value = "productId") int productId,
+			@RequestParam(value = "userId") int userId,
+			HttpServletRequest request, HttpServletResponse response) {
+		JSONObject obj = new JSONObject();
+//		HttpSession session = request.getSession(false);
+//        if (session == null) {
+//            response.setStatus(401);
+//            obj.put("status", "Please login first");
+//        } else {
+//        		int userId = Integer.parseInt((String) session.getAttribute("user_id"));
+//        		if (service.favorite(userId, productId)) {
+//        			obj.put("status", "ok");
+//        		} else {
+//        			response.setStatus(401);
+//        			obj.put("status", "failed");
+//        		}
+//        }
+		if (service.favorite(userId, productId)) {
+			obj.put("status", "ok");
+		} else {
+			response.setStatus(401);
+			obj.put("status", "failed");
+		}
+        RpcHelper.writeResponse(response, obj);
+	}
 }

@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -35,16 +37,17 @@ public class PersistentUser implements Serializable {
 	private String phoneNumber;
 
 	private Timestamp registerDate;
-	
-//	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-//	private List<PersistentProduct> favoriteList;
-	
-//	@OneToMany(fetch = FetchType.EAGER)
-//	@JoinColumn(name = "userId")
-//	private List<PersistentProduct> favoriteList;
 
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<PersistentProduct> saleList;
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = 
+						{ CascadeType.PERSIST, CascadeType.MERGE, 
+						  CascadeType.DETACH, CascadeType.REFRESH })
+	@JoinTable(name = "users_favorites", 
+			   joinColumns = @JoinColumn(name = "user_id"), 
+			   inverseJoinColumns = @JoinColumn(name = "product_id"))
+	private List<PersistentProduct> favoriteList;
 	
 	public int getId() {
 		return id;
@@ -118,13 +121,13 @@ public class PersistentUser implements Serializable {
 		this.registerDate = registerDate;
 	}
 
-//	public List<PersistentProduct> getFavoriteList() {
-//		return favoriteList;
-//	}
-//
-//	public void setFavoriteList(List<PersistentProduct> favoriteList) {
-//		this.favoriteList = favoriteList;
-//	}
+	public List<PersistentProduct> getFavoriteList() {
+		return favoriteList;
+	}
+
+	public void setFavoriteList(List<PersistentProduct> favoriteList) {
+		this.favoriteList = favoriteList;
+	}
 
 	public List<PersistentProduct> getSaleList() {
 		return saleList;
