@@ -9,12 +9,12 @@
 			
 			if (!form.hasClass('fupload')) {
 				$.ajax({
-					type : form.attr('method'),
-					url : form.attr('action'),
+					url : "../api/user/register",
+					type : "POST",
 					data : form.serialize()
 				}).success(function(result, status, xhr) {
 					if (xhr.status === 200) {
-						window.location.href = ("login.html");
+						window.location.href = ("./login.html");
 					}
 				}).fail(function(jqXHR, textStatus, errorThrown) {
 					$("#info").html("bad");

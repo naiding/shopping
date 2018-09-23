@@ -20,7 +20,7 @@ import shopping.entity.User;
 import shopping.service.UserService;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 	
 	@Autowired

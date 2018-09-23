@@ -4,7 +4,7 @@
 
     function init() {
 		$.ajax({
-			url : "./user/login",		
+			url : "../api/user/login",		
 			type : "GET",
 		}).success(function(result, status, xhr) {
 			if (xhr.status === 200) {
@@ -13,11 +13,15 @@
 		}).error(function(xhr, status, error) {
 			$("#info").html("bad");
 		});
+		
+		$("#addproduct-btn").click(function(e) {
+			window.location.href = ("addproduct.html");
+		});
     }
     
     function login(user_id) {
     	$.ajax({
-			url : "./user/profile/" + user_id,		
+			url : "../api/user/profile/" + user_id,		
 			type : "GET",
 		}).success(function(result, status, xhr) {
 			if (xhr.status === 200) {
