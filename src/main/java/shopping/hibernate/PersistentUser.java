@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -38,6 +39,10 @@ public class PersistentUser implements Serializable {
 //	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 //	private List<PersistentProduct> favoriteList;
 	
+//	@OneToMany(fetch = FetchType.EAGER)
+//	@JoinColumn(name = "userId")
+//	private List<PersistentProduct> favoriteList;
+
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<PersistentProduct> saleList;
 	

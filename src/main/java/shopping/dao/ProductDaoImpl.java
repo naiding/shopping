@@ -23,7 +23,6 @@ public class ProductDaoImpl implements ProductDao {
 	@Autowired
     private SessionFactory sessionFactory;
 
-	@SuppressWarnings("unchecked")
 	public Product getProduct(int productId) {
 		Session session = null;
 		try {
@@ -31,7 +30,7 @@ public class ProductDaoImpl implements ProductDao {
 			session.beginTransaction();
 			
 			String hql = "from PersistentProduct pp where pp.id = :productId";
-			Query<PersistentProduct> query = session.createQuery(hql)
+			Query<PersistentProduct> query = session.createQuery(hql, PersistentProduct.class)
 								.setParameter("productId", productId);
 			List<PersistentProduct> pProducts = query.list();
 			session.getTransaction().commit();

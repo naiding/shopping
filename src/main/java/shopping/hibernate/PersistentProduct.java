@@ -49,10 +49,10 @@ public class PersistentProduct implements Serializable {
 	@Column(name = "price")
 	private double productPrice;
 	
-	@Column(name = "post_date")
+	@Column(name = "postDate")
 	private Timestamp productPostDate;
 	
-	@Column(name = "is_sold")
+	@Column(name = "isSold")
 	private boolean productIsSold;
 	
 	@Column(name = "delivery")
