@@ -87,10 +87,11 @@ public class UserDaoImpl implements UserDao {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 			PersistentUser pUser = session.get(PersistentUser.class, userId);
+			User user = new User(pUser);
 			session.getTransaction().commit();
 			
 			if (pUser != null) {
-				return new User(pUser);
+				return user;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -41,6 +41,10 @@ public class User {
 		this.wechat = pUser.getWechatName();
 		this.phone = pUser.getPhoneNumber();
 		this.register_date = pUser.getRegisterDate().toString();
+		this.favorites = new ArrayList<Product>();
+		for (PersistentProduct pProduct : pUser.getFavoriteList()) {
+			this.favorites.add(new Product(pProduct));
+		}
 		this.sales = new ArrayList<Product>();
 		for (PersistentProduct pProduct : pUser.getSaleList()) {
 			this.sales.add(new Product(pProduct));
@@ -152,6 +156,11 @@ public class User {
 				list.add(product.toJSONObject());
 			}
 			obj.put("sales", new JSONArray(list));
+			list.clear();
+			for (Product product : this.favorites) {
+				list.add(product.toJSONObject());
+			}
+			obj.put("favorites", new JSONArray(list));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
